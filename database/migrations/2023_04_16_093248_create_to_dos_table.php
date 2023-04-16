@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('to_dos', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
+            $table->foreignId('status')->constrained('to_do_task_statuses');
+            $table->date('completed_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -28,12 +28,13 @@ class ToDoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:App\Models\ToDO,name'
+        ]);
 
-        $toDo = ToDo::createNewToDo($request->name);
+        ToDo::createNewToDo($request->name);
 
-        $alert = $toDo ? 'Success' : 'Error';
-
-        redirect()->route('to-do.index')->with(['alert' => $alert]);
+         return redirect()->route('to-do.index');
     }
 
     /**

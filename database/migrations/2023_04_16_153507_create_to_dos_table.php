@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('status')->constrained('to_do_task_statuses');
-            $table->date('completed_at')->nullable();
+            $table->dateTime('completed_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

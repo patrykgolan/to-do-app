@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ToDo;
+use App\Services\ToDoAnalyticsService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use function Termwind\render;
@@ -79,5 +80,13 @@ class ToDoController extends Controller
     {
         ToDo::markToDoAsCompleted($id);
         return redirect()->route('to-do.index');
+    }
+
+    public function analytics(Request $request)
+    {
+        // service should return array with following attributes completed, created, from, to
+        $data = ToDoAnalyticsService::analyticsFromDateToDate($request->from, $request->to);
+
+        return view('analytics', $data);
     }
 }

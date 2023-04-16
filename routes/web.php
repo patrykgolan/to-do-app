@@ -25,3 +25,4 @@ Route::redirect('/', 'to-do');
  */
 Route::resource('to-do', ToDoController::class);
 Route::post('to-do/{to_do}/mark-as-completed', [ToDoController::class, 'markAsCompleted'])->name('to-do-to-do.mark-as-completed');
+Route::get('/analytics', [ToDoController::class, 'analytics'])->name('todo.analytics');

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class ToDo extends Model
 {
@@ -26,5 +27,17 @@ class ToDo extends Model
             'name' => $name,
             'status' => 1,
         ]);
+    }
+
+    public static function getAllUncompleted() :Collection
+    {
+        return self::whereStatus(1)->get();
+    }
+
+    public static function deleteToDO($id)
+    {
+        $todo = self::find($id);
+
+        return $todo->delete();
     }
 }

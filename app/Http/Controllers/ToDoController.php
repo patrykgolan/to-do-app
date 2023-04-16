@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ToDo;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use function Termwind\render;
 
 class ToDoController extends Controller
@@ -13,7 +14,8 @@ class ToDoController extends Controller
      */
     public function index()
     {
-        return view('toDo');
+        $toDos = ToDo::getAllUncompleted();
+        return view('toDo', $toDos)->with('todos', $toDos);
     }
 
     /**
@@ -28,8 +30,11 @@ class ToDoController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'name' => 'required|string|max:255|unique:App\Models\ToDO,name'
+            'name' => ['required','string', 'max:255', Rule::unique('todos', 'name')->where(function ($query){
+                return $query->whereNull('deleted_at')->orWhereNotNull('deleted_at');
+            })]
         ]);
 
         ToDo::createNewToDo($request->name);
@@ -66,6 +71,7 @@ class ToDoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        ToDo::deleteToDO($id);
+        return redirect()->route('to-do.index');
     }
 }

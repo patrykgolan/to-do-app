@@ -32,6 +32,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('to_do_task_statuses');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('to_do_task_statuses');;
+        Schema::enableForeignKeyConstraints();
+        Schema::table('to_dos', function (){
+
+        });
     }
 };

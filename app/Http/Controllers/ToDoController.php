@@ -84,8 +84,16 @@ class ToDoController extends Controller
 
     public function analytics(Request $request)
     {
+        // validation will help to make sure queries are type of dates
+        // if not query will be removed from url
+        $validation = $request->validate([
+           'from_date' => 'sometimes|date|before_or_equal:to_date',
+           'to_date' => 'sometimes|date|after_or_equal:from_date',
+        ]);
+
+
         // service should return array with following attributes completed, created, from, to
-        $data = ToDoAnalyticsService::analyticsFromDateToDate($request->from, $request->to);
+        $data = ToDoAnalyticsService::analyticsFromDateToDate($request->from_date, $request->to_date);
 
         return view('analytics', $data);
     }

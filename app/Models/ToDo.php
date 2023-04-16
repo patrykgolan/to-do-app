@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
@@ -34,10 +35,20 @@ class ToDo extends Model
         return self::whereStatus(1)->get();
     }
 
-    public static function deleteToDO($id)
+    public static function deleteToDO($id): ?bool
     {
         $todo = self::find($id);
 
         return $todo->delete();
+    }
+
+    public static function markAsCompleted($id)
+    {
+        $todo = self::find($id);
+
+        return $todo->update([
+            'status' => 2,
+            'completed_at' => Carbon::now(),
+        ]);
     }
 }

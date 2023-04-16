@@ -15,7 +15,10 @@ class ToDoController extends Controller
      */
     public function index()
     {
+        // return only uncompleted ones
         $toDos = ToDo::getAllUncompleted();
+
+        // return view
         return view('toDo', $toDos)->with('todos', $toDos);
     }
 
@@ -33,9 +36,16 @@ class ToDoController extends Controller
     {
 
         $request->validate([
-            'name' => ['required','string', 'max:255', Rule::unique('to_dos', 'name')->where(function ($query){
-                return $query->whereNull('deleted_at')->orWhereNotNull('deleted_at');
-            })]
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                // unique will be applied only for non-soft deleted items
+                Rule::unique('to_dos', 'name')
+                    ->where(function ($query){
+                        return $query->whereNull('deleted_at')->orWhereNotNull('deleted_at');
+                    })
+            ]
         ]);
 
         ToDo::createNewToDo($request->name);
@@ -73,12 +83,14 @@ class ToDoController extends Controller
     public function destroy(string $id)
     {
         ToDo::deleteToDO($id);
+
         return redirect()->route('to-do.index');
     }
 
     public function markAsCompleted(string $id)
     {
         ToDo::markToDoAsCompleted($id);
+
         return redirect()->route('to-do.index');
     }
 
@@ -86,7 +98,7 @@ class ToDoController extends Controller
     {
         // validation will help to make sure queries are type of dates
         // if not query will be removed from url
-        $validation = $request->validate([
+        $request->validate([
            'from_date' => 'sometimes|date|before_or_equal:to_date',
            'to_date' => 'sometimes|date|after_or_equal:from_date',
         ]);

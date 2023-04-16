@@ -77,7 +77,7 @@ class ToDoController extends Controller
 
     public function markAsCompleted(string $id)
     {
-        ToDo::markAsCompleted($id);
+        ToDo::markToDoAsCompleted($id);
         return redirect()->route('to-do.index');
     }
 }

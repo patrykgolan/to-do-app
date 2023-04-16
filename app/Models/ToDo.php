@@ -42,7 +42,7 @@ class ToDo extends Model
         return $todo->delete();
     }
 
-    public static function markAsCompleted($id)
+    public static function markToDoAsCompleted($id): bool
     {
         $todo = self::find($id);
 

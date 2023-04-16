@@ -23,4 +23,5 @@ use Illuminate\Support\Facades\Route;
  * DELETE          to-do/{to_do} ........ to-do.destroy › ToDoController@destroy
  * GET|HEAD        to-do/{to_do}/edit ... to-do.edit › ToDoController@edit
  */
+Route::redirect('/', 'to-do');
 Route::resource('to-do', ToDoController::class);

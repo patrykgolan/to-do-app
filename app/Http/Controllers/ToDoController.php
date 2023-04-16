@@ -32,7 +32,7 @@ class ToDoController extends Controller
     {
 
         $request->validate([
-            'name' => ['required','string', 'max:255', Rule::unique('todos', 'name')->where(function ($query){
+            'name' => ['required','string', 'max:255', Rule::unique('to_dos', 'name')->where(function ($query){
                 return $query->whereNull('deleted_at')->orWhereNotNull('deleted_at');
             })]
         ]);

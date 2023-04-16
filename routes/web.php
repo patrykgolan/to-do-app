@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ToDoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,3 +13,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+/*
+ * GET|HEAD        to-do .................to-do.index › ToDoController@index
+ * POST            to-do .................to-do.store › ToDoController@store
+ * GET|HEAD        to-do/create ..........to-do.create › ToDoController@create
+ * GET|HEAD        to-do/{to_do} ........ to-do.show › ToDoController@show
+ * PUT|PATCH       to-do/{to_do} .........to-do.update › ToDoController@update
+ * DELETE          to-do/{to_do} ........ to-do.destroy › ToDoController@destroy
+ * GET|HEAD        to-do/{to_do}/edit ... to-do.edit › ToDoController@edit
+ */
+Route::resource('to-do', ToDoController::class);

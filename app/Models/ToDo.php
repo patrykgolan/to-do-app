@@ -19,4 +19,12 @@ class ToDo extends Model
         'status' => 'integer',
         'completed_at' => 'date',
     ];
+
+    public static function createNewToDo(string $name) :self
+    {
+        return self::create([
+            'name' => $name,
+            'status' => 1,
+        ]);
+    }
 }

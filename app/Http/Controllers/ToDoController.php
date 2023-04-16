@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ToDo;
 use Illuminate\Http\Request;
 use function Termwind\render;
 
@@ -18,9 +19,8 @@ class ToDoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
     }
 
     /**
@@ -28,7 +28,12 @@ class ToDoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $toDo = ToDo::createNewToDo($request->name);
+
+        $alert = $toDo ? 'Success' : 'Error';
+
+        redirect()->route('to-do.index')->with(['alert' => $alert]);
     }
 
     /**

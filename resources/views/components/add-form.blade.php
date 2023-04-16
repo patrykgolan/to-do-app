@@ -1,5 +1,5 @@
 <div>
-    <form method="POST">
+    <form method="POST" action="{{route('to-do.store')}}">
         @csrf
         <div class="row justify-content-center">
             <div class="col-9 d-flex flex-column">

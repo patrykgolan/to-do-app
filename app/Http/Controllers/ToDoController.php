@@ -74,4 +74,9 @@ class ToDoController extends Controller
         ToDo::deleteToDO($id);
         return redirect()->route('to-do.index');
     }
+
+    public function markAsCompleted(string $id)
+    {
+
+    }
 }

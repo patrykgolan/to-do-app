@@ -25,3 +25,4 @@ use Illuminate\Support\Facades\Route;
  */
 Route::redirect('/', 'to-do');
 Route::resource('to-do', ToDoController::class);
+Route::post('to-do/{to_do}/mark-as-completed', [ToDoController::class, 'markAsCompleted'])->name('to-do-to-do.mark-as-completed');

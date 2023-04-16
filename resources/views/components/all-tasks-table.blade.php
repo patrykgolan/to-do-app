@@ -3,7 +3,9 @@
         @foreach($todos as $todo)
             <li class="list-group-item d-flex justify-content-between">
                 <div>
-                    <input type="checkbox" class="to-do-checkbox">
+                    <form id="mark_as_completed_{{$todo->id}}" method="POST" action="{{ route('to-do-to-do.mark-as-completed', $todo->id)}}">
+                        <input type="checkbox" class="to-do-checkbox">
+                    </form>
                     {{$todo->name}}
                 </div>
                 <div>
